@@ -1,6 +1,7 @@
 package com.corelyon.mvp.app.usecase.funcionario;
 
 import com.corelyon.mvp.app.dto.FuncionarioResponse;
+import com.corelyon.mvp.app.dto.ProjetoResponse;
 import com.corelyon.mvp.infra.entity.FuncionarioEntity;
 import com.corelyon.mvp.infra.repository.FuncionarioRepositoryJpa;
 import org.springframework.stereotype.Component;
@@ -34,12 +35,12 @@ public class ListarFuncionariosUseCase {
             funcionarioEntity.getSalario(),
             funcionarioEntity.getProjetos() != null ? 
                 funcionarioEntity.getProjetos().stream()
-                    .map(p -> new com.corelyon.mvp.app.dto.ProjetoResponse(
+                    .map(p -> new ProjetoResponse(
                         p.getId(),
                         p.getNome(),
                         p.getDescricao(),
                         p.getDataCriacao(),
-                        null // funcionários não são carregados aqui para evitar referência circular
+                        null // funcionários não são carregados aqui para evitar referência circular que ocorreu durante o desenvolvimento
                     ))
                     .collect(java.util.stream.Collectors.toSet()) : 
                 null

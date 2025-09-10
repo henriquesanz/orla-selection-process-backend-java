@@ -24,7 +24,26 @@ Após inicialização:
 - **Backend API**: http://localhost:8080
 - **Health Check**: http://localhost:8080/actuator/health
 
-### 3. Comandos Úteis
+### 3. Testes com Postman
+
+Para testar a API, você pode usar a collection do Postman disponível no arquivo `Backend-Java-MVP-Project-Manager.json`.
+
+**Como importar a collection:**
+1. Abra o Postman
+2. Clique em "Import" no canto superior esquerdo
+3. Selecione o arquivo `Backend-Java-MVP-Project-Manager.json` do projeto
+4. A collection será importada com todos os endpoints configurados
+
+**Endpoints disponíveis na collection:**
+- **Funcionários**: CRUD simples (criar, listar, buscar por ID)
+- **Projetos**: CRUD simples (criar, listar, buscar por ID)
+
+**Configuração:**
+- Base URL: `http://localhost:8080`
+- A collection já está configurada para usar a URL base correta
+- Todos os endpoints incluem exemplos de requisição e resposta
+
+### 4. Comandos Úteis
 
 ```bash
 # Ver status
@@ -35,11 +54,6 @@ docker-compose logs -f
 
 # Parar tudo
 docker-compose down
-
-# Testar sistema
-test-system.bat  # Windows
-./test-system.sh # Linux/Mac
-```
 
 ## Arquitetura
 

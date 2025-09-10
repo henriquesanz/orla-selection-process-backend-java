@@ -1,5 +1,6 @@
 package com.corelyon.mvp.app.usecase.projeto;
 
+import com.corelyon.mvp.app.dto.FuncionarioResponse;
 import com.corelyon.mvp.app.dto.ProjetoResponse;
 import com.corelyon.mvp.infra.entity.ProjetoEntity;
 import com.corelyon.mvp.infra.repository.ProjetoRepositoryJpa;
@@ -33,7 +34,7 @@ public class ListarProjetosUseCase {
             projetoEntity.getDataCriacao(),
             projetoEntity.getFuncionarios() != null ? 
                 projetoEntity.getFuncionarios().stream()
-                    .map(f -> new com.corelyon.mvp.app.dto.FuncionarioResponse(
+                    .map(f -> new FuncionarioResponse(
                         f.getId(),
                         f.getNome(),
                         f.getCpf(),

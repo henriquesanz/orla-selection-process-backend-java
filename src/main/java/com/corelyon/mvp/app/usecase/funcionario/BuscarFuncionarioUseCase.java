@@ -29,7 +29,7 @@ public class BuscarFuncionarioUseCase {
             funcionario.cpf(),
             funcionario.email(),
             funcionario.salario(),
-            null // Projetos serão carregados separadamente se necessário
+            null
         );
     }
 }

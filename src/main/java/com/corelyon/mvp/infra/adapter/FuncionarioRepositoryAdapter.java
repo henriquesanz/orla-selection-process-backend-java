@@ -83,7 +83,7 @@ public class FuncionarioRepositoryAdapter implements FuncionarioRepository {
             entity.getCpf(),
             entity.getEmail(),
             entity.getSalario(),
-            null // Projetos serão carregados separadamente se necessário
+            null
         );
     }
 }

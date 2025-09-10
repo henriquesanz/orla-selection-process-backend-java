@@ -2,6 +2,7 @@ package com.corelyon.mvp.app.usecase.funcionario;
 
 import com.corelyon.mvp.app.dto.FuncionarioRequest;
 import com.corelyon.mvp.app.dto.FuncionarioResponse;
+import com.corelyon.mvp.app.dto.ProjetoResponse;
 import com.corelyon.mvp.infra.entity.FuncionarioEntity;
 import com.corelyon.mvp.infra.entity.ProjetoEntity;
 import com.corelyon.mvp.infra.repository.FuncionarioRepositoryJpa;
@@ -69,7 +70,7 @@ public class CriarFuncionarioUseCase {
             funcionarioEntity.getSalario(),
             funcionarioEntity.getProjetos() != null ? 
                 funcionarioEntity.getProjetos().stream()
-                    .map(p -> new com.corelyon.mvp.app.dto.ProjetoResponse(
+                    .map(p -> new ProjetoResponse(
                         p.getId(),
                         p.getNome(),
                         p.getDescricao(),

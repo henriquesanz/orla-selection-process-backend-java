@@ -1,5 +1,6 @@
 package com.corelyon.mvp.app.usecase.projeto;
 
+import com.corelyon.mvp.app.dto.FuncionarioResponse;
 import com.corelyon.mvp.app.dto.ProjetoResponse;
 import com.corelyon.mvp.app.exception.ResourceNotFoundException;
 import com.corelyon.mvp.infra.entity.ProjetoEntity;
@@ -30,7 +31,7 @@ public class BuscarProjetoUseCase {
             projetoEntity.getDataCriacao(),
             projetoEntity.getFuncionarios() != null ? 
                 projetoEntity.getFuncionarios().stream()
-                    .map(f -> new com.corelyon.mvp.app.dto.FuncionarioResponse(
+                    .map(f -> new FuncionarioResponse(
                         f.getId(),
                         f.getNome(),
                         f.getCpf(),
