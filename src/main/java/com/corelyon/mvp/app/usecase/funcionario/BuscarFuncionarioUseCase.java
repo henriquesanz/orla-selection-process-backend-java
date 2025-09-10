@@ -1,6 +1,7 @@
 package com.corelyon.mvp.app.usecase.funcionario;
 
 import com.corelyon.mvp.app.dto.FuncionarioResponse;
+import com.corelyon.mvp.app.exception.ResourceNotFoundException;
 import com.corelyon.mvp.domain.Funcionario;
 import com.corelyon.mvp.domain.repository.FuncionarioRepository;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ public class BuscarFuncionarioUseCase {
     
     public FuncionarioResponse executar(Long id) {
         Funcionario funcionario = funcionarioRepository.buscarPorId(id)
-            .orElseThrow(() -> new RuntimeException("Funcionário não encontrado com ID: " + id));
+            .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado com ID: " + id));
         
         return toResponse(funcionario);
     }

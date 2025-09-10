@@ -2,89 +2,82 @@ package com.corelyon.mvp.app.usecase.funcionario;
 
 import com.corelyon.mvp.app.dto.FuncionarioRequest;
 import com.corelyon.mvp.app.dto.FuncionarioResponse;
-import com.corelyon.mvp.domain.Funcionario;
-import com.corelyon.mvp.domain.Projeto;
-import com.corelyon.mvp.domain.repository.FuncionarioRepository;
-import com.corelyon.mvp.domain.repository.ProjetoRepository;
+import com.corelyon.mvp.infra.entity.FuncionarioEntity;
+import com.corelyon.mvp.infra.entity.ProjetoEntity;
+import com.corelyon.mvp.infra.repository.FuncionarioRepositoryJpa;
+import com.corelyon.mvp.infra.repository.ProjetoRepositoryJpa;
 import org.springframework.stereotype.Component;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Component
 public class CriarFuncionarioUseCase {
     
-    private final FuncionarioRepository funcionarioRepository;
-    private final ProjetoRepository projetoRepository;
+    private final FuncionarioRepositoryJpa funcionarioRepositoryJpa;
+    private final ProjetoRepositoryJpa projetoRepositoryJpa;
     
-    public CriarFuncionarioUseCase(FuncionarioRepository funcionarioRepository, 
-                                   ProjetoRepository projetoRepository) {
-        this.funcionarioRepository = funcionarioRepository;
-        this.projetoRepository = projetoRepository;
+    public CriarFuncionarioUseCase(FuncionarioRepositoryJpa funcionarioRepositoryJpa, 
+                                   ProjetoRepositoryJpa projetoRepositoryJpa) {
+        this.funcionarioRepositoryJpa = funcionarioRepositoryJpa;
+        this.projetoRepositoryJpa = projetoRepositoryJpa;
     }
     
     public FuncionarioResponse executar(FuncionarioRequest request) {
-        // Validações de negócio
-        if (funcionarioRepository.existePorCpf(request.cpf())) {
+        if (funcionarioRepositoryJpa.existsByCpf(request.cpf())) {
             throw new RuntimeException("Funcionário com CPF " + request.cpf() + " já existe");
         }
         
-        if (funcionarioRepository.existePorEmail(request.email())) {
+        if (funcionarioRepositoryJpa.existsByEmail(request.email())) {
             throw new RuntimeException("Funcionário com email " + request.email() + " já existe");
         }
         
-        // Criar funcionário
-        Funcionario funcionario = new Funcionario(
-            null, // ID será gerado pelo banco
+        FuncionarioEntity funcionarioEntity = new FuncionarioEntity(
             request.nome(),
             request.cpf(),
             request.email(),
             request.salario()
         );
         
-        // Associar projetos se fornecidos
         if (request.projetos() != null && !request.projetos().isEmpty()) {
-            Set<Projeto> projetos = new HashSet<>();
             for (var projetoRequest : request.projetos()) {
-                Projeto projeto = buscarOuCriarProjeto(projetoRequest);
-                projetos.add(projeto);
+                ProjetoEntity projeto = buscarOuCriarProjeto(projetoRequest);
+                funcionarioEntity.adicionarProjeto(projeto);
             }
-            funcionario = new Funcionario(
-                funcionario.id(),
-                funcionario.nome(),
-                funcionario.cpf(),
-                funcionario.email(),
-                funcionario.salario(),
-                projetos
-            );
         }
         
-        Funcionario funcionarioSalvo = funcionarioRepository.salvar(funcionario);
+        FuncionarioEntity funcionarioSalvo = funcionarioRepositoryJpa.save(funcionarioEntity);
         
         return toResponse(funcionarioSalvo);
     }
     
-    private Projeto buscarOuCriarProjeto(com.corelyon.mvp.app.dto.ProjetoRequest projetoRequest) {
-        return projetoRepository.buscarPorNome(projetoRequest.nome())
+    private ProjetoEntity buscarOuCriarProjeto(com.corelyon.mvp.app.dto.ProjetoRequest projetoRequest) {
+        return projetoRepositoryJpa.findByNome(projetoRequest.nome())
             .orElseGet(() -> {
-                Projeto novoProjeto = new Projeto(
-                    null,
+                ProjetoEntity novoProjeto = new ProjetoEntity(
                     projetoRequest.nome(),
                     projetoRequest.descricao(),
                     java.time.LocalDateTime.now()
                 );
-                return projetoRepository.salvar(novoProjeto);
+                return projetoRepositoryJpa.save(novoProjeto);
             });
     }
     
-    private FuncionarioResponse toResponse(Funcionario funcionario) {
+    private FuncionarioResponse toResponse(FuncionarioEntity funcionarioEntity) {
         return new FuncionarioResponse(
-            funcionario.id(),
-            funcionario.nome(),
-            funcionario.cpf(),
-            funcionario.email(),
-            funcionario.salario(),
-            null // Projetos serão carregados separadamente se necessário
+            funcionarioEntity.getId(),
+            funcionarioEntity.getNome(),
+            funcionarioEntity.getCpf(),
+            funcionarioEntity.getEmail(),
+            funcionarioEntity.getSalario(),
+            funcionarioEntity.getProjetos() != null ? 
+                funcionarioEntity.getProjetos().stream()
+                    .map(p -> new com.corelyon.mvp.app.dto.ProjetoResponse(
+                        p.getId(),
+                        p.getNome(),
+                        p.getDescricao(),
+                        p.getDataCriacao(),
+                        null
+                    ))
+                    .collect(java.util.stream.Collectors.toSet()) : 
+                null
         );
     }
 }

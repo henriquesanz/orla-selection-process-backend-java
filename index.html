@@ -25,13 +25,13 @@
     <!-- Header -->
     <header class="bg-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-6">
-                <h1 class="text-3xl font-bold text-gray-900">Sistema de Gestão</h1>
-                <div class="flex space-x-4">
-                    <button id="projetosTab" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+            <div class="flex flex-col sm:flex-row justify-between items-center py-6 space-y-4 sm:space-y-0">
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Sistema de Gestão</h1>
+                <div class="flex space-x-2 sm:space-x-4">
+                    <button id="projetosTab" class="px-3 sm:px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors text-sm sm:text-base">
                         Projetos
                     </button>
-                    <button id="funcionariosTab" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors">
+                    <button id="funcionariosTab" class="px-3 sm:px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm sm:text-base">
                         Funcionários
                     </button>
                 </div>
@@ -44,11 +44,23 @@
         <!-- Projetos Section -->
         <div id="projetosSection" class="space-y-6">
             <!-- Projetos Header -->
-            <div class="flex justify-between items-center">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
                 <h2 class="text-2xl font-bold text-gray-900">Gestão de Projetos</h2>
-                <button id="novoProjetoBtn" class="px-4 py-2 bg-success text-white rounded-lg hover:bg-green-600 transition-colors">
-                    + Novo Projeto
-                </button>
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                    <div class="flex space-x-2">
+                        <input type="number" id="buscarProjetoId" placeholder="Buscar por ID" 
+                               class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary w-32">
+                        <button id="buscarProjetoBtn" class="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
+                            Buscar
+                        </button>
+                        <button id="listarTodosProjetosBtn" class="px-3 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors">
+                            Listar Todos
+                        </button>
+                    </div>
+                    <button id="novoProjetoBtn" class="px-4 py-2 bg-success text-white rounded-lg hover:bg-green-600 transition-colors">
+                        + Novo Projeto
+                    </button>
+                </div>
             </div>
 
             <!-- Projetos List -->
@@ -65,11 +77,23 @@
         <!-- Funcionários Section -->
         <div id="funcionariosSection" class="space-y-6 hidden">
             <!-- Funcionários Header -->
-            <div class="flex justify-between items-center">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
                 <h2 class="text-2xl font-bold text-gray-900">Gestão de Funcionários</h2>
-                <button id="novoFuncionarioBtn" class="px-4 py-2 bg-success text-white rounded-lg hover:bg-green-600 transition-colors">
-                    + Novo Funcionário
-                </button>
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                    <div class="flex space-x-2">
+                        <input type="number" id="buscarFuncionarioId" placeholder="Buscar por ID" 
+                               class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary w-32">
+                        <button id="buscarFuncionarioBtn" class="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
+                            Buscar
+                        </button>
+                        <button id="listarTodosFuncionariosBtn" class="px-3 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors">
+                            Listar Todos
+                        </button>
+                    </div>
+                    <button id="novoFuncionarioBtn" class="px-4 py-2 bg-success text-white rounded-lg hover:bg-green-600 transition-colors">
+                        + Novo Funcionário
+                    </button>
+                </div>
             </div>
 
             <!-- Funcionários List -->
@@ -87,7 +111,7 @@
     <!-- Modal para Projetos -->
     <div id="projetoModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden">
         <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto">
                 <div class="px-6 py-4 border-b border-gray-200">
                     <h3 id="projetoModalTitle" class="text-lg font-semibold text-gray-900">Novo Projeto</h3>
                 </div>
@@ -98,9 +122,35 @@
                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                     </div>
                     <div>
+                        <label for="projetoDescricao" class="block text-sm font-medium text-gray-700">Descrição</label>
+                        <textarea id="projetoDescricao" name="descricao" rows="3" required
+                                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"></textarea>
+                    </div>
+                    <div>
                         <label for="projetoDataCriacao" class="block text-sm font-medium text-gray-700">Data de Criação</label>
                         <input type="date" id="projetoDataCriacao" name="dataCriacao" required
                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Funcionários Associados</label>
+                        <div id="funcionariosProjetoContainer" class="space-y-2">
+                            <div class="flex space-x-2">
+                                <input type="text" placeholder="Nome do funcionário" 
+                                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary funcionario-nome">
+                                <input type="text" placeholder="CPF" 
+                                       class="w-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary funcionario-cpf">
+                                <input type="email" placeholder="Email" 
+                                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary funcionario-email">
+                                <input type="number" placeholder="Salário" step="0.01" 
+                                       class="w-24 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary funcionario-salario">
+                                <button type="button" onclick="removerFuncionarioProjeto(this)" class="px-2 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors">
+                                    -
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" onclick="adicionarFuncionarioProjeto()" class="mt-2 px-3 py-1 text-sm bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors">
+                            + Adicionar Funcionário
+                        </button>
                     </div>
                     <div class="flex justify-end space-x-3 pt-4">
                         <button type="button" id="cancelarProjeto" class="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 transition-colors">
@@ -118,7 +168,7 @@
     <!-- Modal para Funcionários -->
     <div id="funcionarioModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden">
         <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto">
                 <div class="px-6 py-4 border-b border-gray-200">
                     <h3 id="funcionarioModalTitle" class="text-lg font-semibold text-gray-900">Novo Funcionário</h3>
                 </div>
@@ -143,6 +193,23 @@
                         <input type="number" id="funcionarioSalario" name="salario" step="0.01" required
                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary">
                     </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Projetos Associados</label>
+                        <div id="projetosFuncionarioContainer" class="space-y-2">
+                            <div class="flex space-x-2">
+                                <input type="text" placeholder="Nome do projeto" 
+                                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary projeto-nome">
+                                <textarea placeholder="Descrição" rows="2" 
+                                          class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary projeto-descricao"></textarea>
+                                <button type="button" onclick="removerProjetoFuncionario(this)" class="px-2 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors">
+                                    -
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" onclick="adicionarProjetoFuncionario()" class="mt-2 px-3 py-1 text-sm bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors">
+                            + Adicionar Projeto
+                        </button>
+                    </div>
                     <div class="flex justify-end space-x-3 pt-4">
                         <button type="button" id="cancelarFuncionario" class="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 transition-colors">
                             Cancelar
@@ -156,32 +223,9 @@
         </div>
     </div>
 
-    <!-- Modal para Associar Funcionários ao Projeto -->
-    <div id="associarModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h3 id="associarModalTitle" class="text-lg font-semibold text-gray-900">Associar Funcionários ao Projeto</h3>
-                </div>
-                <div class="p-6">
-                    <div id="funcionariosDisponiveis" class="space-y-2 max-h-96 overflow-y-auto">
-                        <!-- Funcionários disponíveis serão carregados aqui -->
-                    </div>
-                    <div class="flex justify-end space-x-3 pt-4">
-                        <button type="button" id="cancelarAssociar" class="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 transition-colors">
-                            Cancelar
-                        </button>
-                        <button type="button" id="salvarAssociacoes" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-secondary transition-colors">
-                            Salvar Associações
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Toast para notificações -->
-    <div id="toast" class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300">
+    <div id="toast" class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full opacity-0 transition-all duration-300 pointer-events-none">
         <span id="toastMessage">Operação realizada com sucesso!</span>
     </div>
 
@@ -191,11 +235,13 @@
             projetos: {
                 base: 'http://localhost:8080/api/projetos',
                 get: 'http://localhost:8080/api/projetos',
+                getById: (id) => `http://localhost:8080/api/projetos/${id}`,
                 post: 'http://localhost:8080/api/projetos'
             },
             funcionarios: {
                 base: 'http://localhost:8080/api/funcionarios',
                 get: 'http://localhost:8080/api/funcionarios',
+                getById: (id) => `http://localhost:8080/api/funcionarios/${id}`,
                 post: 'http://localhost:8080/api/funcionarios'
             }
         };
@@ -205,7 +251,6 @@
         let funcionarios = [];
         let projetoEditando = null;
         let funcionarioEditando = null;
-        let projetoParaAssociar = null;
 
         // Elementos do DOM
         const projetosSection = document.getElementById('projetosSection');
@@ -216,7 +261,6 @@
         const funcionariosList = document.getElementById('funcionariosList');
         const projetoModal = document.getElementById('projetoModal');
         const funcionarioModal = document.getElementById('funcionarioModal');
-        const associarModal = document.getElementById('associarModal');
         const toast = document.getElementById('toast');
         const toastMessage = document.getElementById('toastMessage');
 
@@ -236,15 +280,19 @@
             document.getElementById('novoProjetoBtn').addEventListener('click', () => abrirModalProjeto());
             document.getElementById('novoFuncionarioBtn').addEventListener('click', () => abrirModalFuncionario());
 
+            // Botões de busca
+            document.getElementById('buscarProjetoBtn').addEventListener('click', buscarProjetoPorId);
+            document.getElementById('buscarFuncionarioBtn').addEventListener('click', buscarFuncionarioPorId);
+            document.getElementById('listarTodosProjetosBtn').addEventListener('click', carregarProjetos);
+            document.getElementById('listarTodosFuncionariosBtn').addEventListener('click', carregarFuncionarios);
+
             // Modais
             document.getElementById('cancelarProjeto').addEventListener('click', () => fecharModalProjeto());
             document.getElementById('cancelarFuncionario').addEventListener('click', () => fecharModalFuncionario());
-            document.getElementById('cancelarAssociar').addEventListener('click', () => fecharModalAssociar());
 
             // Formulários
             document.getElementById('projetoForm').addEventListener('submit', salvarProjeto);
             document.getElementById('funcionarioForm').addEventListener('submit', salvarFuncionario);
-            document.getElementById('salvarAssociacoes').addEventListener('click', salvarAssociacoes);
 
             // Fechar modais clicando fora
             projetoModal.addEventListener('click', (e) => {
@@ -253,9 +301,6 @@
             funcionarioModal.addEventListener('click', (e) => {
                 if (e.target === funcionarioModal) fecharModalFuncionario();
             });
-            associarModal.addEventListener('click', (e) => {
-                if (e.target === associarModal) fecharModalAssociar();
-            });
         }
 
         function mostrarSecao(secao) {
@@ -263,16 +308,42 @@
                 projetosSection.classList.remove('hidden');
                 funcionariosSection.classList.add('hidden');
                 projetosTab.className = 'px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors';
-                funcionariosTab.className = 'px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors';
+                funcionariosTab.className = 'px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors';
             } else {
                 projetosSection.classList.add('hidden');
                 funcionariosSection.classList.remove('hidden');
                 funcionariosTab.className = 'px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors';
-                projetosTab.className = 'px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors';
+                projetosTab.className = 'px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors';
             }
         }
 
         // Funções para Projetos
+        async function buscarProjetoPorId() {
+            const id = document.getElementById('buscarProjetoId').value;
+            if (!id) {
+                mostrarToast('Por favor, insira um ID válido', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(API_ENDPOINTS.projetos.getById(id));
+                if (response.ok) {
+                    const projeto = await response.json();
+                    projetos = [projeto]; // Mostrar apenas o projeto encontrado
+                    renderizarProjetos();
+                    mostrarToast('Projeto encontrado!');
+                    document.getElementById('buscarProjetoId').value = ''; // Limpar campo
+                } else if (response.status === 404) {
+                    mostrarToast('Projeto não encontrado', 'error');
+                } else {
+                    mostrarToast('Erro ao buscar projeto', 'error');
+                }
+            } catch (error) {
+                console.error('Erro ao buscar projeto:', error);
+                mostrarToast('Erro de conexão ao buscar projeto', 'error');
+            }
+        }
+
         async function carregarProjetos() {
             try {
                 const response = await fetch(API_ENDPOINTS.projetos.get);
@@ -303,19 +374,22 @@
                     <div class="flex justify-between items-start">
                         <div class="flex-1">
                             <h4 class="text-lg font-semibold text-gray-900">${projeto.nome}</h4>
-                            <p class="text-sm text-gray-600">Criado em: ${new Date(projeto.dataCriacao).toLocaleDateString('pt-BR')}</p>
+                            <p class="text-sm text-gray-600 mt-1">${projeto.descricao || 'Sem descrição'}</p>
+                            <p class="text-sm text-gray-500 mt-2">Criado em: ${new Date(projeto.dataCriacao).toLocaleDateString('pt-BR')}</p>
                             <div class="mt-2">
                                 <span class="text-sm text-gray-500">Funcionários associados: ${projeto.funcionarios ? projeto.funcionarios.length : 0}</span>
+                                ${projeto.funcionarios && projeto.funcionarios.length > 0 ? 
+                                    `<div class="mt-1 text-xs text-gray-600">
+                                        ${projeto.funcionarios.map(f => f.nome).join(', ')}
+                                    </div>` : ''
+                                }
                             </div>
                         </div>
-                        <div class="flex space-x-2">
-                            <button onclick="abrirModalAssociar(${projeto.id})" class="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors">
-                                Associar Funcionários
-                            </button>
-                            <button onclick="editarProjeto(${projeto.id})" class="px-3 py-1 text-sm bg-yellow-100 text-yellow-700 rounded hover:bg-yellow-200 transition-colors">
+                        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                            <button onclick="editarProjeto(${projeto.id})" class="px-3 py-1 text-xs sm:text-sm bg-yellow-100 text-yellow-700 rounded hover:bg-yellow-200 transition-colors">
                                 Editar
                             </button>
-                            <button onclick="excluirProjeto(${projeto.id})" class="px-3 py-1 text-sm bg-red-100 text-red-700 rounded hover:bg-red-200 transition-colors">
+                            <button onclick="excluirProjeto(${projeto.id})" class="px-3 py-1 text-xs sm:text-sm bg-red-100 text-red-700 rounded hover:bg-red-200 transition-colors">
                                 Excluir
                             </button>
                         </div>
@@ -330,9 +404,27 @@
             const form = document.getElementById('projetoForm');
             const title = document.getElementById('projetoModalTitle');
             
+            // Limpar funcionários associados
+            document.getElementById('funcionariosProjetoContainer').innerHTML = `
+                <div class="flex space-x-2">
+                    <input type="text" placeholder="Nome do funcionário" 
+                           class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary funcionario-nome">
+                    <input type="text" placeholder="CPF" 
+                           class="w-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary funcionario-cpf">
+                    <input type="email" placeholder="Email" 
+                           class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary funcionario-email">
+                    <input type="number" placeholder="Salário" step="0.01" 
+                           class="w-24 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary funcionario-salario">
+                    <button type="button" onclick="removerFuncionarioProjeto(this)" class="px-2 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors">
+                        -
+                    </button>
+                </div>
+            `;
+            
             if (projeto) {
                 title.textContent = 'Editar Projeto';
                 form.nome.value = projeto.nome;
+                form.descricao.value = projeto.descricao || '';
                 form.dataCriacao.value = projeto.dataCriacao;
             } else {
                 title.textContent = 'Novo Projeto';
@@ -353,12 +445,15 @@
             const formData = new FormData(e.target);
             const projeto = Object.fromEntries(formData.entries());
 
-            try {
-                const url = projetoEditando ? `${API_ENDPOINTS.projetos.base}/${projetoEditando.id}` : API_ENDPOINTS.projetos.post;
-                const method = projetoEditando ? 'PUT' : 'POST';
+            // Coletar funcionários associados
+            const funcionariosAssociados = coletarFuncionariosProjeto();
+            if (funcionariosAssociados.length > 0) {
+                projeto.funcionarios = funcionariosAssociados;
+            }
 
-                const response = await fetch(url, {
-                    method: method,
+            try {
+                const response = await fetch(API_ENDPOINTS.projetos.post, {
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -366,11 +461,12 @@
                 });
 
                 if (response.ok) {
-                    mostrarToast(projetoEditando ? 'Projeto atualizado com sucesso!' : 'Projeto criado com sucesso!');
+                    mostrarToast('Projeto criado com sucesso!');
                     fecharModalProjeto();
                     carregarProjetos();
                 } else {
-                    mostrarToast('Erro ao salvar projeto', 'error');
+                    const errorData = await response.json();
+                    mostrarToast(`Erro ao salvar projeto: ${errorData.message || 'Erro desconhecido'}`, 'error');
                 }
             } catch (error) {
                 console.error('Erro ao salvar projeto:', error);
@@ -379,33 +475,40 @@
         }
 
         function editarProjeto(id) {
-            const projeto = projetos.find(p => p.id === id);
-            if (projeto) {
-                abrirModalProjeto(projeto);
-            }
+            mostrarToast('Funcionalidade de edição não disponível no momento', 'error');
         }
 
-        async function excluirProjeto(id) {
-            if (confirm('Tem certeza que deseja excluir este projeto?')) {
-                try {
-                    const response = await fetch(`${API_ENDPOINTS.projetos.base}/${id}`, {
-                        method: 'DELETE'
-                    });
-
-                    if (response.ok) {
-                        mostrarToast('Projeto excluído com sucesso!');
-                        carregarProjetos();
-                    } else {
-                        mostrarToast('Erro ao excluir projeto', 'error');
-                    }
-                } catch (error) {
-                    console.error('Erro ao excluir projeto:', error);
-                    mostrarToast('Erro de conexão ao excluir projeto', 'error');
-                }
-            }
+        function excluirProjeto(id) {
+            mostrarToast('Funcionalidade de exclusão não disponível no momento', 'error');
         }
 
         // Funções para Funcionários
+        async function buscarFuncionarioPorId() {
+            const id = document.getElementById('buscarFuncionarioId').value;
+            if (!id) {
+                mostrarToast('Por favor, insira um ID válido', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(API_ENDPOINTS.funcionarios.getById(id));
+                if (response.ok) {
+                    const funcionario = await response.json();
+                    funcionarios = [funcionario]; // Mostrar apenas o funcionário encontrado
+                    renderizarFuncionarios();
+                    mostrarToast('Funcionário encontrado!');
+                    document.getElementById('buscarFuncionarioId').value = ''; // Limpar campo
+                } else if (response.status === 404) {
+                    mostrarToast('Funcionário não encontrado', 'error');
+                } else {
+                    mostrarToast('Erro ao buscar funcionário', 'error');
+                }
+            } catch (error) {
+                console.error('Erro ao buscar funcionário:', error);
+                mostrarToast('Erro de conexão ao buscar funcionário', 'error');
+            }
+        }
+
         async function carregarFuncionarios() {
             try {
                 const response = await fetch(API_ENDPOINTS.funcionarios.get);
@@ -439,12 +542,20 @@
                             <p class="text-sm text-gray-600">CPF: ${funcionario.cpf}</p>
                             <p class="text-sm text-gray-600">Email: ${funcionario.email}</p>
                             <p class="text-sm text-gray-600">Salário: R$ ${parseFloat(funcionario.salario).toFixed(2)}</p>
+                            <div class="mt-2">
+                                <span class="text-sm text-gray-500">Projetos associados: ${funcionario.projetos ? funcionario.projetos.length : 0}</span>
+                                ${funcionario.projetos && funcionario.projetos.length > 0 ? 
+                                    `<div class="mt-1 text-xs text-gray-600">
+                                        ${funcionario.projetos.map(p => p.nome).join(', ')}
+                                    </div>` : ''
+                                }
+                            </div>
                         </div>
-                        <div class="flex space-x-2">
-                            <button onclick="editarFuncionario(${funcionario.id})" class="px-3 py-1 text-sm bg-yellow-100 text-yellow-700 rounded hover:bg-yellow-200 transition-colors">
+                        <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                            <button onclick="editarFuncionario(${funcionario.id})" class="px-3 py-1 text-xs sm:text-sm bg-yellow-100 text-yellow-700 rounded hover:bg-yellow-200 transition-colors">
                                 Editar
                             </button>
-                            <button onclick="excluirFuncionario(${funcionario.id})" class="px-3 py-1 text-sm bg-red-100 text-red-700 rounded hover:bg-red-200 transition-colors">
+                            <button onclick="excluirFuncionario(${funcionario.id})" class="px-3 py-1 text-xs sm:text-sm bg-red-100 text-red-700 rounded hover:bg-red-200 transition-colors">
                                 Excluir
                             </button>
                         </div>
@@ -458,6 +569,19 @@
             funcionarioEditando = funcionario;
             const form = document.getElementById('funcionarioForm');
             const title = document.getElementById('funcionarioModalTitle');
+            
+            // Limpar projetos associados
+            document.getElementById('projetosFuncionarioContainer').innerHTML = `
+                <div class="flex space-x-2">
+                    <input type="text" placeholder="Nome do projeto" 
+                           class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary projeto-nome">
+                    <textarea placeholder="Descrição" rows="2" 
+                              class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary projeto-descricao"></textarea>
+                    <button type="button" onclick="removerProjetoFuncionario(this)" class="px-2 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors">
+                        -
+                    </button>
+                </div>
+            `;
             
             if (funcionario) {
                 title.textContent = 'Editar Funcionário';
@@ -483,12 +607,15 @@
             const formData = new FormData(e.target);
             const funcionario = Object.fromEntries(formData.entries());
 
-            try {
-                const url = funcionarioEditando ? `${API_ENDPOINTS.funcionarios.base}/${funcionarioEditando.id}` : API_ENDPOINTS.funcionarios.post;
-                const method = funcionarioEditando ? 'PUT' : 'POST';
+            // Coletar projetos associados
+            const projetosAssociados = coletarProjetosFuncionario();
+            if (projetosAssociados.length > 0) {
+                funcionario.projetos = projetosAssociados;
+            }
 
-                const response = await fetch(url, {
-                    method: method,
+            try {
+                const response = await fetch(API_ENDPOINTS.funcionarios.post, {
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -496,11 +623,12 @@
                 });
 
                 if (response.ok) {
-                    mostrarToast(funcionarioEditando ? 'Funcionário atualizado com sucesso!' : 'Funcionário criado com sucesso!');
+                    mostrarToast('Funcionário criado com sucesso!');
                     fecharModalFuncionario();
                     carregarFuncionarios();
                 } else {
-                    mostrarToast('Erro ao salvar funcionário', 'error');
+                    const errorData = await response.json();
+                    mostrarToast(`Erro ao salvar funcionário: ${errorData.message || 'Erro desconhecido'}`, 'error');
                 }
             } catch (error) {
                 console.error('Erro ao salvar funcionário:', error);
@@ -509,103 +637,112 @@
         }
 
         function editarFuncionario(id) {
-            const funcionario = funcionarios.find(f => f.id === id);
-            if (funcionario) {
-                abrirModalFuncionario(funcionario);
-            }
+            mostrarToast('Funcionalidade de edição não disponível no momento', 'error');
         }
 
-        async function excluirFuncionario(id) {
-            if (confirm('Tem certeza que deseja excluir este funcionário?')) {
-                try {
-                    const response = await fetch(`${API_ENDPOINTS.funcionarios.base}/${id}`, {
-                        method: 'DELETE'
-                    });
-
-                    if (response.ok) {
-                        mostrarToast('Funcionário excluído com sucesso!');
-                        carregarFuncionarios();
-                    } else {
-                        mostrarToast('Erro ao excluir funcionário', 'error');
-                    }
-                } catch (error) {
-                    console.error('Erro ao excluir funcionário:', error);
-                    mostrarToast('Erro de conexão ao excluir funcionário', 'error');
-                }
-            }
+        function excluirFuncionario(id) {
+            mostrarToast('Funcionalidade de exclusão não disponível no momento', 'error');
         }
 
-        // Funções para Associação
-        function abrirModalAssociar(projetoId) {
-            projetoParaAssociar = projetoId;
-            const projeto = projetos.find(p => p.id === projetoId);
-            document.getElementById('associarModalTitle').textContent = `Associar Funcionários - ${projeto.nome}`;
+
+        // Funções auxiliares para associações
+        function adicionarFuncionarioProjeto() {
+            const container = document.getElementById('funcionariosProjetoContainer');
+            const div = document.createElement('div');
+            div.className = 'flex space-x-2';
+            div.innerHTML = `
+                <input type="text" placeholder="Nome do funcionário" 
+                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary funcionario-nome">
+                <input type="text" placeholder="CPF" 
+                       class="w-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary funcionario-cpf">
+                <input type="email" placeholder="Email" 
+                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary funcionario-email">
+                <input type="number" placeholder="Salário" step="0.01" 
+                       class="w-24 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary funcionario-salario">
+                <button type="button" onclick="removerFuncionarioProjeto(this)" class="px-2 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors">
+                    -
+                </button>
+            `;
+            container.appendChild(div);
+        }
+
+        function removerFuncionarioProjeto(button) {
+            button.parentElement.remove();
+        }
+
+        function adicionarProjetoFuncionario() {
+            const container = document.getElementById('projetosFuncionarioContainer');
+            const div = document.createElement('div');
+            div.className = 'flex space-x-2';
+            div.innerHTML = `
+                <input type="text" placeholder="Nome do projeto" 
+                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary projeto-nome">
+                <textarea placeholder="Descrição" rows="2" 
+                          class="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary projeto-descricao"></textarea>
+                <button type="button" onclick="removerProjetoFuncionario(this)" class="px-2 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors">
+                    -
+                </button>
+            `;
+            container.appendChild(div);
+        }
+
+        function removerProjetoFuncionario(button) {
+            button.parentElement.remove();
+        }
+
+        function coletarFuncionariosProjeto() {
+            const funcionarios = [];
+            const container = document.getElementById('funcionariosProjetoContainer');
+            const rows = container.querySelectorAll('.flex.space-x-2');
             
-            renderizarFuncionariosDisponiveis();
-            associarModal.classList.remove('hidden');
-        }
-
-        function fecharModalAssociar() {
-            associarModal.classList.add('hidden');
-            projetoParaAssociar = null;
-        }
-
-        function renderizarFuncionariosDisponiveis() {
-            const container = document.getElementById('funcionariosDisponiveis');
-            container.innerHTML = '';
-
-            funcionarios.forEach(funcionario => {
-                const funcionarioDiv = document.createElement('div');
-                funcionarioDiv.className = 'flex items-center justify-between p-3 border border-gray-200 rounded-lg';
-                funcionarioDiv.innerHTML = `
-                    <div class="flex-1">
-                        <h5 class="font-medium text-gray-900">${funcionario.nome}</h5>
-                        <p class="text-sm text-gray-600">${funcionario.email}</p>
-                    </div>
-                    <label class="flex items-center">
-                        <input type="checkbox" value="${funcionario.id}" class="funcionario-checkbox rounded border-gray-300 text-primary focus:ring-primary">
-                        <span class="ml-2 text-sm text-gray-700">Associar</span>
-                    </label>
-                `;
-                container.appendChild(funcionarioDiv);
-            });
-        }
-
-        async function salvarAssociacoes() {
-            const checkboxes = document.querySelectorAll('.funcionario-checkbox:checked');
-            const funcionarioIds = Array.from(checkboxes).map(cb => parseInt(cb.value));
-
-            try {
-                const response = await fetch(`${API_ENDPOINTS.projetos.base}/${projetoParaAssociar}/funcionarios`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ funcionarioIds })
-                });
-
-                if (response.ok) {
-                    mostrarToast('Funcionários associados com sucesso!');
-                    fecharModalAssociar();
-                    carregarProjetos();
-                } else {
-                    mostrarToast('Erro ao associar funcionários', 'error');
+            rows.forEach(row => {
+                const nome = row.querySelector('.funcionario-nome').value;
+                const cpf = row.querySelector('.funcionario-cpf').value;
+                const email = row.querySelector('.funcionario-email').value;
+                const salario = row.querySelector('.funcionario-salario').value;
+                
+                if (nome && cpf && email && salario) {
+                    funcionarios.push({
+                        nome: nome,
+                        cpf: cpf,
+                        email: email,
+                        salario: parseFloat(salario)
+                    });
                 }
-            } catch (error) {
-                console.error('Erro ao associar funcionários:', error);
-                mostrarToast('Erro de conexão ao associar funcionários', 'error');
-            }
+            });
+            
+            return funcionarios;
+        }
+
+        function coletarProjetosFuncionario() {
+            const projetos = [];
+            const container = document.getElementById('projetosFuncionarioContainer');
+            const rows = container.querySelectorAll('.flex.space-x-2');
+            
+            rows.forEach(row => {
+                const nome = row.querySelector('.projeto-nome').value;
+                const descricao = row.querySelector('.projeto-descricao').value;
+                
+                if (nome) {
+                    projetos.push({
+                        nome: nome,
+                        descricao: descricao || ''
+                    });
+                }
+            });
+            
+            return projetos;
         }
 
         // Função para mostrar toast
         function mostrarToast(message, type = 'success') {
             toastMessage.textContent = message;
-            toast.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg transform translate-x-0 transition-transform duration-300 ${
+            toast.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg transform translate-x-0 opacity-100 transition-all duration-300 pointer-events-auto ${
                 type === 'error' ? 'bg-red-500 text-white' : 'bg-green-500 text-white'
             }`;
             
             setTimeout(() => {
-                toast.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300';
+                toast.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full opacity-0 transition-all duration-300 pointer-events-none';
             }, 3000);
         }
     </script>

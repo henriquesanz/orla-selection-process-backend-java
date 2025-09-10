@@ -1,0 +1,652 @@
+{
+	"info": {
+		"_postman_id": "398baa8c-608c-47e1-813f-e6f7c915b148",
+		"name": "Backend Java - MVP Project Manager",
+		"description": "Collection para testar todos os endpoints do backend Java apontando para localhost:8080",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38875935"
+	},
+	"item": [
+		{
+			"name": "Funcionários",
+			"item": [
+				{
+					"name": "Cenários de Validação",
+					"item": [
+						{
+							"name": "Criar Funcionário - CPF Válido",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"João Silva\",\n    \"cpf\": \"11144477735\",\n    \"email\": \"joao.silva@email.com\",\n    \"salario\": 5000.00,\n    \"projetos\": null\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/funcionarios",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"funcionarios"
+									]
+								},
+								"description": "Cria um funcionário com CPF válido"
+							},
+							"response": []
+						},
+						{
+							"name": "Criar Funcionário - CPF Inválido",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Maria Santos\",\n    \"cpf\": \"12345678900\",\n    \"email\": \"maria.santos@email.com\",\n    \"salario\": 4000.00,\n    \"projetos\": null\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/funcionarios",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"funcionarios"
+									]
+								},
+								"description": "Tenta criar um funcionário com CPF inválido (deve retornar erro 400)"
+							},
+							"response": []
+						},
+						{
+							"name": "Criar Funcionário - CPF com Todos Dígitos Iguais",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Pedro Costa\",\n    \"cpf\": \"11111111111\",\n    \"email\": \"pedro.costa@email.com\",\n    \"salario\": 3000.00,\n    \"projetos\": null\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/funcionarios",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"funcionarios"
+									]
+								},
+								"description": "Tenta criar um funcionário com CPF inválido (todos dígitos iguais - deve retornar erro 400)"
+							},
+							"response": []
+						},
+						{
+							"name": "Criar Funcionário - Email Inválido",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Ana Lima\",\n    \"cpf\": \"12345678909\",\n    \"email\": \"email-invalido\",\n    \"salario\": 3500.00,\n    \"projetos\": null\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/funcionarios",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"funcionarios"
+									]
+								},
+								"description": "Tenta criar um funcionário com email inválido (deve retornar erro 400)"
+							},
+							"response": []
+						},
+						{
+							"name": "Criar Funcionário - Salário Negativo",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Carlos Oliveira\",\n    \"cpf\": \"98765432100\",\n    \"email\": \"carlos.oliveira@email.com\",\n    \"salario\": -1000.00,\n    \"projetos\": null\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/funcionarios",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"funcionarios"
+									]
+								},
+								"description": "Tenta criar um funcionário com salário negativo (deve retornar erro 400)"
+							},
+							"response": []
+						},
+						{
+							"name": "Criar Funcionário - Campos Obrigatórios Vazios",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"\",\n    \"cpf\": \"\",\n    \"email\": \"\",\n    \"salario\": null,\n    \"projetos\": null\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/funcionarios",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"funcionarios"
+									]
+								},
+								"description": "Tenta criar um funcionário com campos obrigatórios vazios (deve retornar erro 400)"
+							},
+							"response": []
+						}
+					],
+					"description": "Cenários de validação para funcionários"
+				},
+				{
+					"name": "Cenários com Projetos",
+					"item": [
+						{
+							"name": "Criar Funcionário com Projetos",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Lucas Ferreira\",\n    \"cpf\": \"58759006013\",\n    \"email\": \"lucas.ferreira@email.com\",\n    \"salario\": 6000.00,\n    \"projetos\": [\n        {\n            \"nome\": \"Sistema de Vendas\",\n            \"descricao\": \"Desenvolvimento de sistema de vendas online\"\n        },\n        {\n            \"nome\": \"App Mobile\",\n            \"descricao\": \"Aplicativo mobile para clientes\"\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/funcionarios",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"funcionarios"
+									]
+								},
+								"description": "Cria um funcionário associado a projetos"
+							},
+							"response": []
+						},
+						{
+							"name": "Criar Funcionário sem Projetos",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Fernanda Alves\",\n    \"cpf\": \"98765432100\",\n    \"email\": \"fernanda.alves@email.com\",\n    \"salario\": 4500.00,\n    \"projetos\": null\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/funcionarios",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"funcionarios"
+									]
+								},
+								"description": "Cria um funcionário sem projetos associados"
+							},
+							"response": []
+						}
+					],
+					"description": "Cenários de funcionários com e sem projetos"
+				},
+				{
+					"name": "Operações Básicas",
+					"item": [
+						{
+							"name": "Listar Funcionários",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/funcionarios",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"funcionarios"
+									]
+								},
+								"description": "Lista todos os funcionários cadastrados"
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar Funcionário por ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/funcionarios/{{funcionario_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"funcionarios",
+										"{{funcionario_id}}"
+									]
+								},
+								"description": "Busca um funcionário específico pelo ID"
+							},
+							"response": []
+						}
+					],
+					"description": "Operações básicas de funcionários"
+				}
+			],
+			"description": "Endpoints relacionados aos funcionários"
+		},
+		{
+			"name": "Projetos",
+			"item": [
+				{
+					"name": "Cenários de Validação",
+					"item": [
+						{
+							"name": "Criar Projeto - Nome Válido",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Sistema de Gestão Empresarial\",\n    \"descricao\": \"Desenvolvimento de um sistema completo de gestão empresarial\",\n    \"funcionarios\": null\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/projetos",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projetos"
+									]
+								},
+								"description": "Cria um projeto com nome válido"
+							},
+							"response": []
+						},
+						{
+							"name": "Criar Projeto - Nome Vazio",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"\",\n    \"descricao\": \"Projeto sem nome\",\n    \"funcionarios\": null\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/projetos",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projetos"
+									]
+								},
+								"description": "Tenta criar um projeto com nome vazio (deve retornar erro 400)"
+							},
+							"response": []
+						},
+						{
+							"name": "Criar Projeto - Nome Nulo",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": null,\n    \"descricao\": \"Projeto sem nome\",\n    \"funcionarios\": null\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/projetos",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projetos"
+									]
+								},
+								"description": "Tenta criar um projeto com nome nulo (deve retornar erro 400)"
+							},
+							"response": []
+						}
+					],
+					"description": "Cenários de validação para projetos"
+				},
+				{
+					"name": "Cenários com Funcionários",
+					"item": [
+						{
+							"name": "Criar Projeto com Funcionários",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"E-commerce Platform\",\n    \"descricao\": \"Plataforma de e-commerce completa\",\n    \"funcionarios\": [\n        {\n            \"nome\": \"Roberto Silva\",\n            \"cpf\": \"11144477735\",\n            \"email\": \"roberto.silva@email.com\",\n            \"salario\": 7000.00\n        },\n        {\n            \"nome\": \"Patricia Costa\",\n            \"cpf\": \"12345678909\",\n            \"email\": \"patricia.costa@email.com\",\n            \"salario\": 6500.00\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/projetos",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projetos"
+									]
+								},
+								"description": "Cria um projeto associado a funcionários"
+							},
+							"response": []
+						},
+						{
+							"name": "Criar Projeto sem Funcionários",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Sistema de Relatórios\",\n    \"descricao\": \"Sistema para geração de relatórios gerenciais\",\n    \"funcionarios\": null\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/projetos",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projetos"
+									]
+								},
+								"description": "Cria um projeto sem funcionários associados"
+							},
+							"response": []
+						}
+					],
+					"description": "Cenários de projetos com e sem funcionários"
+				},
+				{
+					"name": "Operações Básicas",
+					"item": [
+						{
+							"name": "Listar Projetos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projetos",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projetos"
+									]
+								},
+								"description": "Lista todos os projetos cadastrados"
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar Projeto por ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projetos/{{projeto_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projetos",
+										"{{projeto_id}}"
+									]
+								},
+								"description": "Busca um projeto específico pelo ID"
+							},
+							"response": []
+						}
+					],
+					"description": "Operações básicas de projetos"
+				}
+			],
+			"description": "Endpoints relacionados aos projetos"
+		},
+		{
+			"name": "Cenários de Erro",
+			"item": [
+				{
+					"name": "Recursos Não Encontrados",
+					"item": [
+						{
+							"name": "Buscar Funcionário Inexistente",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/funcionarios/99999",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"funcionarios",
+										"99999"
+									]
+								},
+								"description": "Tenta buscar um funcionário que não existe (deve retornar erro 404)"
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar Projeto Inexistente",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/projetos/99999",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"projetos",
+										"99999"
+									]
+								},
+								"description": "Tenta buscar um projeto que não existe (deve retornar erro 404)"
+							},
+							"response": []
+						}
+					],
+					"description": "Cenários de recursos não encontrados"
+				},
+				{
+					"name": "Dados Duplicados",
+					"item": [
+						{
+							"name": "Criar Funcionário - CPF Duplicado",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"João Duplicado\",\n    \"cpf\": \"11144477735\",\n    \"email\": \"joao.duplicado@email.com\",\n    \"salario\": 5000.00,\n    \"projetos\": null\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/funcionarios",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"funcionarios"
+									]
+								},
+								"description": "Tenta criar um funcionário com CPF já existente (deve retornar erro 400)"
+							},
+							"response": []
+						},
+						{
+							"name": "Criar Funcionário - Email Duplicado",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\": \"Maria Duplicada\",\n    \"cpf\": \"98765432100\",\n    \"email\": \"joao.silva@email.com\",\n    \"salario\": 4000.00,\n    \"projetos\": null\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/funcionarios",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"funcionarios"
+									]
+								},
+								"description": "Tenta criar um funcionário com email já existente (deve retornar erro 400)"
+							},
+							"response": []
+						}
+					],
+					"description": "Cenários de dados duplicados"
+				}
+			],
+			"description": "Cenários de erro e validação"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "funcionario_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "projeto_id",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}

@@ -36,10 +36,9 @@ class FuncionarioControllerIntegrationTest {
 
     @Test
     void deveCriarFuncionarioComSucesso() throws Exception {
-        // Arrange
         FuncionarioRequest request = new FuncionarioRequest(
             "João Silva",
-            "12345678901",
+            "11144477735",
             "joao@email.com",
             5000.0,
             null
@@ -49,27 +48,87 @@ class FuncionarioControllerIntegrationTest {
         headers.set("Content-Type", "application/json");
         HttpEntity<FuncionarioRequest> entity = new HttpEntity<>(request, headers);
 
-        // Act
         ResponseEntity<FuncionarioResponse> response = restTemplate.postForEntity(
             getBaseUrl() + "/funcionarios", entity, FuncionarioResponse.class);
 
-        // Assert
         assertEquals(201, response.getStatusCodeValue());
         assertNotNull(response.getBody());
         assertEquals("João Silva", response.getBody().nome());
-        assertEquals("12345678901", response.getBody().cpf());
+        assertEquals("11144477735", response.getBody().cpf());
         assertEquals("joao@email.com", response.getBody().email());
         assertEquals(5000.0, response.getBody().salario());
     }
 
     @Test
     void deveListarFuncionarios() {
-        // Act
         ResponseEntity<FuncionarioResponse[]> response = restTemplate.getForEntity(
             getBaseUrl() + "/funcionarios", FuncionarioResponse[].class);
 
-        // Assert
         assertEquals(200, response.getStatusCodeValue());
         assertNotNull(response.getBody());
+    }
+
+    @Test
+    void deveRejeitarCPFInvalido() throws Exception {
+        FuncionarioRequest request = new FuncionarioRequest(
+            "João Silva",
+            "12345678900",
+            "joao@email.com",
+            5000.0,
+            null
+        );
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        HttpEntity<FuncionarioRequest> entity = new HttpEntity<>(request, headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(
+            getBaseUrl() + "/funcionarios", entity, String.class);
+
+        assertEquals(400, response.getStatusCodeValue());
+        assertTrue(response.getBody().contains("CPF inválido"));
+    }
+
+    @Test
+    void deveRejeitarCPFComTodosDigitosIguais() throws Exception {
+        FuncionarioRequest request = new FuncionarioRequest(
+            "João Silva",
+            "11111111111",
+            "joao@email.com",
+            5000.0,
+            null
+        );
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        HttpEntity<FuncionarioRequest> entity = new HttpEntity<>(request, headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(
+            getBaseUrl() + "/funcionarios", entity, String.class);
+
+        assertEquals(400, response.getStatusCodeValue());
+        assertTrue(response.getBody().contains("CPF inválido"));
+    }
+
+    @Test
+    void deveAceitarCPFValido() throws Exception {
+        FuncionarioRequest request = new FuncionarioRequest(
+            "Maria Santos",
+            "12345678909",
+            "maria@email.com",
+            6000.0,
+            null
+        );
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        HttpEntity<FuncionarioRequest> entity = new HttpEntity<>(request, headers);
+
+        ResponseEntity<FuncionarioResponse> response = restTemplate.postForEntity(
+            getBaseUrl() + "/funcionarios", entity, FuncionarioResponse.class);
+
+        assertEquals(201, response.getStatusCodeValue());
+        assertNotNull(response.getBody());
+        assertEquals("12345678909", response.getBody().cpf());
     }
 }

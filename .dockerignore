@@ -1,0 +1,38 @@
+# Git
+.git
+.gitignore
+
+# Maven
+target/
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Documentation
+*.md
+HELP.md
+
+# Test files
+src/test/
+
+# Other
+node_modules/
+npm-debug.log*

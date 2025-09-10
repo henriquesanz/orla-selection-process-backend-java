@@ -21,12 +21,8 @@ public class FuncionarioController {
     
     @PostMapping
     public ResponseEntity<FuncionarioResponse> criarFuncionario(@Valid @RequestBody FuncionarioRequest request) {
-        try {
-            FuncionarioResponse response = funcionarioService.criarFuncionario(request);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
-        }
+        FuncionarioResponse response = funcionarioService.criarFuncionario(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     
     @GetMapping
@@ -37,11 +33,7 @@ public class FuncionarioController {
     
     @GetMapping("/{id}")
     public ResponseEntity<FuncionarioResponse> buscarFuncionario(@PathVariable Long id) {
-        try {
-            FuncionarioResponse response = funcionarioService.buscarPorId(id);
-            return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        FuncionarioResponse response = funcionarioService.buscarPorId(id);
+        return ResponseEntity.ok(response);
     }
 }

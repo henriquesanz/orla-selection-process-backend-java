@@ -21,12 +21,8 @@ public class ProjetoController {
     
     @PostMapping
     public ResponseEntity<ProjetoResponse> criarProjeto(@Valid @RequestBody ProjetoRequest request) {
-        try {
-            ProjetoResponse response = projetoService.criarProjeto(request);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
-        }
+        ProjetoResponse response = projetoService.criarProjeto(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     
     @GetMapping
@@ -37,11 +33,7 @@ public class ProjetoController {
     
     @GetMapping("/{id}")
     public ResponseEntity<ProjetoResponse> buscarProjeto(@PathVariable Long id) {
-        try {
-            ProjetoResponse response = projetoService.buscarPorId(id);
-            return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        ProjetoResponse response = projetoService.buscarPorId(id);
+        return ResponseEntity.ok(response);
     }
 }
