@@ -54,6 +54,7 @@ docker-compose logs -f
 
 # Parar tudo
 docker-compose down
+```
 
 ## Arquitetura
 
